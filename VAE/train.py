@@ -44,7 +44,6 @@ for epoch in range(NUM_EPOCHS):
         loop.set_description(f"Epoch [{epoch}/{NUM_EPOCHS}]")
         loop.set_postfix(loss=total_loss.item())
     
-import os
 
 model = model.to("cpu")
 
@@ -63,9 +62,6 @@ def inference(digit, num_samples=5):
         encoding_digits.append((mu, sigma))
     return encoding_digits
 
-# Create the results directory if it doesn't exist
-if not os.path.exists('results'):
-    os.makedirs('results')
 
 num_samples = 5
 for digit in range(10):
@@ -76,4 +72,4 @@ for digit in range(10):
         z = mu + sigma * epsilon
         out = model.decode(z)
         out = out.view(-1, 1, 28, 28)
-        save_image(out, f"results/{digit}_{example}.png")
+        save_image(out, f"vae_results/{digit}_{example}.png")
